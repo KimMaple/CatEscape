@@ -20,11 +20,17 @@ public class CatEscapeGameDirector : MonoBehaviour
     private void Update()
     {
         this.hp = Mathf.RoundToInt(this.hpGauag.fillAmount * 100);
-        this.hpText.text = $"남은 체력 : {this.hp}";
+        this.hpText.text = $"남은 체력 : {this.hp} " +
+            $"\n {Time.realtimeSinceStartup:0.00}";
 
         if (this.hp == 0)
         {
             this.hpText.text = "죽었어요.";
+        }
+
+        if( Time.realtimeSinceStartup > 30) 
+        {
+            this.arrowDamage = 50f;
         }
     }
 
