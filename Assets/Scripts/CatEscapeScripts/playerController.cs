@@ -1,22 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEngine.UI;
 
 
 public class playerController : MonoBehaviour
 {
-    [SerializeField] private UnityEngine.UI.Image hpGauag;
+    [SerializeField] private Image hpGauag;
+    [SerializeField] private Button btnLeft;
+    [SerializeField] private Button btnRight;
 
     public float radius = 0.8f;
 
     public float minf = -8f, maxf = 8f;
 
+    void Start()
+    {
+        //this.btnLeft.onClick.AddListner(this.LeftButtonClick);
+        //this.btnRight.onClick.AddListner(this.RightButtonClick);
+
+        this.btnLeft.onClick.AddListener(() =>{});
+        this.btnRight.onClick.AddListener(() =>{});
+    }
+
     void Update()
     {
         // 체력이 0이 아닐떄만 동작 가능
-        if(hpGauag.fillAmount > 0)
+        if (hpGauag.fillAmount > 0)
         {
             if (this.transform.position.x <= minf)
             {
@@ -47,12 +57,28 @@ public class playerController : MonoBehaviour
                 }
             }
         }
-               
+
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(this.transform.position, this.radius);
+    }
+
+    public void LeftButtonClick()
+    {
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            this.transform.Translate(-5 * Time.deltaTime, 0, 0);
+        }
+    }
+
+    public void RightButtonClick()
+    {
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            this.transform.Translate(5 * Time.deltaTime, 0, 0);
+        }
     }
 }
