@@ -19,8 +19,14 @@ public class playerController : MonoBehaviour
         //this.btnLeft.onClick.AddListner(this.LeftButtonClick);
         //this.btnRight.onClick.AddListner(this.RightButtonClick);
 
-        this.btnLeft.onClick.AddListener(() =>{});
-        this.btnRight.onClick.AddListener(() =>{});
+        this.btnLeft.onClick.AddListener(() =>
+        {
+            this.transform.Translate(-20 * Time.deltaTime, 0, 0);
+        });
+        this.btnRight.onClick.AddListener(() =>
+        {
+            this.transform.Translate(20 * Time.deltaTime, 0, 0);
+        });
     }
 
     void Update()
@@ -68,17 +74,11 @@ public class playerController : MonoBehaviour
 
     public void LeftButtonClick()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            this.transform.Translate(-5 * Time.deltaTime, 0, 0);
-        }
+
     }
 
     public void RightButtonClick()
     {
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            this.transform.Translate(5 * Time.deltaTime, 0, 0);
-        }
+
     }
 }

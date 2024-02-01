@@ -517,6 +517,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpGauag: {fileID: 1420659511}
+  btnLeft: {fileID: 1885065852}
+  btnRight: {fileID: 271125590}
   radius: 0.8
   minf: -8
   maxf: 8
