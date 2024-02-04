@@ -1,48 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] Animator capAnim;
+    [SerializeField] Coroutine Coroutine;
 
     private enum State
     {
         Idle, Hit, HitDead, DeadGround
     }
-    private State state = State.Idle;
+    private int state;
 
     public int capHp = 2;
     void Start()
     {
+        this.Coroutine = StartCoroutine(CoCapMove());
+    }
+
+    private IEnumerator CoCapMove()
+    {
+        state = 0;
+        if (capHp > 1)
+        {
+            state = 0;
+        }
+        if (capHp == 1)
+        {
+            state = 2;
+        }
+        
+        if (capHp == 0)
+        {
+            state = 3;
+        }
+        this.capAnim.SetInteger("CaptainState", (int)state);
+        yield return null;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (capHp > 0)
-        {
-            state = State.Idle;
-            this.capAnim.SetInteger("CaptainState", (int)state);
-        }
-
+            
         if (Input.GetMouseButtonDown(0))
         {
-            state = State.Hit;
             capHp -= 1;
-            if(capHp == 0)
-            {
-                state = State.HitDead;
-            }
-            this.capAnim.SetInteger("CaptainState", (int)state);
-        }
-        
+        }       
         Debug.Log(capHp);
-
-        if (capHp <= 0)
-        {
-            state = State.DeadGround;
-            this.capAnim.SetInteger("CaptainState", (int)state);
-        }
     }
 }
