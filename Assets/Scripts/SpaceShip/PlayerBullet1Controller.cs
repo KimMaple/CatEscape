@@ -14,6 +14,7 @@ public class PlayerBullet1Controller : MonoBehaviour
     {
         camera = GameObject.Find("Main Camera");
         player = GameObject.Find("PlayerShip");
+        // 총알 최초 위치 유저 포지션
         this.transform.position = this.player.transform.position;
     }
 

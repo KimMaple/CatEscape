@@ -2,25 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAController : MonoBehaviour
+public class BossController : MonoBehaviour
 {
-    private GameObject explosion;
-    private ExplosionGenerator explosionGenerator;
+    private ExplosionGenerator explosionGenerator = new ExplosionGenerator();
     private GameObject camera;
     private Animator anim;
     [SerializeField] int hp = 2;
     float speed = 0.5f;
 
 
-    private enum State{
+   /* private enum State
+    {
         EnemyA, EnemyAHit
-    }   
-    private State state;
+    }
+    private State state;*/
 
     private void Start()
     {
-        explosion = GameObject.Find("ExplosionGenerator");
-        explosionGenerator = explosion.GetComponent<ExplosionGenerator>();
         camera = GameObject.Find("Main Camera");
         anim = GetComponent<Animator>();
     }
@@ -34,12 +32,12 @@ public class EnemyAController : MonoBehaviour
             this.CreateExplosion();
             Destroy(this.gameObject);
         }
-        if(transform.position.y <= camera.transform.position.y - 7)
+        if (transform.position.y <= camera.transform.position.y - 7)
         {
             Destroy(this.gameObject);
         }
 
-        state = State.EnemyA;
+        //state = State.EnemyA;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -47,17 +45,16 @@ public class EnemyAController : MonoBehaviour
         if (collision.tag == "PlayerBullet")
         {
             hp--;
-            state = State.EnemyAHit;     
+            //state = State.EnemyAHit;
         }
 
-        Debug.Log((int)state);
-        this.anim.SetInteger("State", (int)state);
+       // Debug.Log((int)state);
+        //this.anim.SetInteger("State", (int)state);
         Debug.LogFormat("EnemyA Hp : {0}", hp);
     }
 
-    private void CreateExplosion()
+    public void CreateExplosion()
     {
-
         GameObject explosionGo = this.explosionGenerator.CreateExplosion();
         explosionGo.transform.position = this.transform.position;
         explosionGo.GetComponent<ExplosionController>().Explode();
