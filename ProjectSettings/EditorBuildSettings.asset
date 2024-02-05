@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/ClimbCloud.unity
-    guid: abd3154cc0de7eb4f92e7741836dfead
+    path: Assets/Scenes/Basket.unity
+    guid: 2d542e8b34612e548b2bbf4ab4372eb5
   - enabled: 1
-    path: Assets/Scenes/ClimbCloudClear.unity
-    guid: 54309ce9e95349b40b6b7d10a0ebb4b0
+    path: Assets/Scenes/ScoreScene.unity
+    guid: 7fc60d7c5f87ce0459666d551014dfa0
+  - enabled: 1
+    path: Assets/Scenes/SelectBasket.unity
+    guid: 976c3dba85e4c944fb6a90e07b4c3935
   m_configObjects: {}
