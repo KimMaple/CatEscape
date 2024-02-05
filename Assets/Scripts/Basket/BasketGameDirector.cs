@@ -2,33 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BasketGameDirector : MonoBehaviour
 {
     private Text pointText;
     private int point;
+    [SerializeField] private GameObject basket;
     [SerializeField] private GameObject pointGo;
     [SerializeField] private GameObject timeGo;
+
+    public int Persent {  get; set; }
+
     private Text timeText;
+    int foolSec;
     float sec;
-
-    private string pointT;
-
     private void Start()
     {
-        timeText = timeGo.GetComponent<Text>();
-        pointText = pointGo.GetComponent<Text>();
+        this.Persent = 50;
+        this.foolSec = 30;
+        this.timeText = timeGo.GetComponent<Text>();
+        this.pointText = pointGo.GetComponent<Text>();
     }
 
     void Update()
     {
-        pointT += string.Format("점수 : {0}",point);
-        BasketController basketController = new BasketController();
-        this.point = basketController.GetPoint();
+        this.point = basket.GetComponent<BasketController>().Point;
         sec += Time.deltaTime;
-
-        this.pointText.text = pointT;
-        //timeText.text = $"{sec:D2}";
-        
+        if(sec > 1 )
+        {
+            this.foolSec = foolSec - (int)sec;
+            this.pointText.text = $"점수 : {point}";
+            this.timeText.text = $"남은 시간 : {foolSec}";
+            sec = 0;
+        }
+        if(foolSec == 0)
+        {
+            SceneManager.LoadScene("ScoreScene");
+        }
     }
 }

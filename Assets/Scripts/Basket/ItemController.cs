@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 1f;
+    [SerializeField] private float moveSpeed = 10f;
     /*public enum itemType
     {
 
     }*/
-
-
     void Update()
     {
         this.transform.Translate(Vector3.down * moveSpeed * Time.deltaTime);

@@ -4,36 +4,50 @@ using UnityEngine;
 
 public class ItemGenerator : MonoBehaviour
 {
+    [SerializeField] BasketGameDirector gameDirector;
     [SerializeField] GameObject applePrefab;
     [SerializeField] GameObject bombPrefab;
     private float delta;
-    void Start()
-    {
-
-    }
-
+    Coroutine coroutine;
+    int persent;
 
     private void Update()
     {
+        persent = gameDirector.Persent;
 
+        if(coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+        coroutine = StartCoroutine(this.CoGenerate());
+    }
 
-        int appleX = Random.Range(-1, 2);
-        int appleZ = Random.Range(-1, 2);
-        int bombX = Random.Range(-1, 2);
-        int bombZ = Random.Range(-1, 2);
+    private IEnumerator CoGenerate()
+    {
+        int who = Random.Range(0,100);   // 0이면 폭탄 1이면 사과
+        int x = Random.Range(-1, 2);
+        int z = Random.Range(-1, 2);
 
         delta += Time.deltaTime; // 이전 프레임과 현재 프레임 사이 시간
                                  //Debug.LogFormat("delta = {0}", delta);
 
-        if (delta > 3)
+        if (delta > 1.4)
         {
             this.applePrefab.transform.position = new Vector3
-            (appleX, applePrefab.transform.position.y, appleZ);
+            (x, applePrefab.transform.position.y, z);
             this.bombPrefab.transform.position = new Vector3
-                (bombX, bombPrefab.transform.position.y, bombZ);
-            Instantiate(this.applePrefab);
-            Instantiate(this.bombPrefab);
+                (x, bombPrefab.transform.position.y, z);
+            if (who >= this.persent)
+            {
+                Instantiate(this.applePrefab);
+            }
+            else if (who < this.persent)
+            {
+                Instantiate(this.bombPrefab);
+            }
+
             delta = 0;
         }
+        yield return null;
     }
 }

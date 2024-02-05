@@ -1,21 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class BasketController : MonoBehaviour
 {
     [SerializeField] private AudioClip appleSfx;
     [SerializeField] private AudioClip bombSfx;
-
+    [SerializeField] private BasketGameData gameData;
     private AudioSource audioSource;
 
-    int point;
+    enum basketType 
+    { Yellow, Red, Green }
 
-    public int GetPoint()
-    {
-        return this.point;
-    }
-
+    public int Point { get; set; }
+    public int APoint {  get; set; }
+    public int BPoint { get; set; }
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -52,16 +52,20 @@ public class BasketController : MonoBehaviour
         if (other.CompareTag("Apple")) // 아래 붐하고 동일한 조건식
         {
             Debug.Log("득점");
-            this.point+=10;
+            this.Point+=10;
+            this.APoint++;
             this.audioSource.PlayOneShot(this.appleSfx);
         }
         else if (other.tag == "Bomb") 
         {
             Debug.Log("감점");
-            this.point-=10;
+            this.Point-=10;
+            this.BPoint++;
             this.audioSource.PlayOneShot(this.bombSfx);
         }
-        Debug.LogFormat("point : {0}", this.point);
+        //Debug.LogFormat("point : {0}", this.Point);
         Destroy(other.gameObject);
+        this.gameData.UploadScoreData(this.Point,this.APoint,this.BPoint);
+
     }
 }
